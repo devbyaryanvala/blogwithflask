@@ -1,27 +1,35 @@
-<!-- templates/index.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
+    <title>Blog Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Blog app by aryanvala</h1>
-        <ul>
+        <h1>Welcome to My Blog</h1>
+        <ul class="post-list">
             {% for post in posts %}
-                <li class="post">
-                    <a href="{{ url_for('post', post_id=post['id']) }}">{{ post['title'] }}</a>
-                    <form action="{{ url_for('delete_post', post_id=post['id']) }}" method="post">
-                        <button type="submit">Delete</button>
-                    </form>
+                <li class="post-item">
+                    <div class="post">
+                        <div>
+                            <a href="{{ url_for('post', post_id=post['id']) }}">{{ post['title'] }}</a>
+                            {% if post['timestamp'] %}
+                                <p class="post-timestamp">Published: {{ post['timestamp'] }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="post-actions">
+                            <a href="{{ url_for('edit_post', post_id=post['id']) }}" class="edit-btn">Edit</a>
+                            <form action="{{ url_for('delete_post', post_id=post['id']) }}" method="post" style="display: inline-block; margin-left: 10px;">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </div>
                 </li>
             {% endfor %}
         </ul>
-        <a class="add-post-btn" href="{{ url_for('add_post') }}">Add Post</a>
+        <a class="add-post-btn" href="{{ url_for('add_post') }}">Create New Post</a>
     </div>
 </body>
 </html>

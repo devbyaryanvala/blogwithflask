@@ -1,23 +1,41 @@
 /* static/style.css */
 
+:root {
+    --primary-color: #007bff; /* Blue */
+    --primary-dark-color: #0056b3; /* Darker Blue */
+    --secondary-color: #6c757d; /* Gray */
+    --success-color: #28a745; /* Green for edit */
+    --danger-color: #dc3545; /* Red for delete */
+    --background-light: #f8f9fa; /* Light Gray */
+    --background-dark: #e9ecef; /* Slightly Darker Gray */
+    --text-color: #343a40; /* Dark Gray */
+    --border-color: #dee2e6; /* Lighter Gray for borders */
+    --white-color: #ffffff;
+    --shadow-light: rgba(0, 0, 0, 0.08);
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
+    background-color: var(--background-light);
+    color: var(--text-color);
+    line-height: 1.6;
 }
 
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 30px;
+    background-color: var(--white-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px var(--shadow-light);
 }
 
-h1 {
-    color: #333;
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-dark-color);
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 ul {
@@ -26,35 +44,222 @@ ul {
 }
 
 li {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+li:last-child {
+    border-bottom: none;
 }
 
 .post {
-    background-color: #f9f9f9;
-    padding: 10px;
+    background-color: var(--background-dark);
+    padding: 15px;
     border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.post:hover {
+    background-color: var(--background-light);
 }
 
 .post a {
     text-decoration: none;
-    color: #333;
+    color: var(--primary-color);
+    font-size: 1.2em;
+    font-weight: 600;
+    flex-grow: 1;
+    margin-right: 15px;
 }
 
 .post a:hover {
     text-decoration: underline;
+    color: var(--primary-dark-color);
 }
 
-.add-post-btn {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
+.post-timestamp {
+    font-size: 0.85em;
+    color: var(--secondary-color);
+    margin-top: 5px;
+}
+
+/* Button Styling */
+button, .add-post-btn, .edit-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: var(--white-color);
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+    text-decoration: none; /* For anchor tags acting as buttons */
 }
 
-.add-post-btn:hover {
-    background-color: #0056b3;
+button:hover, .add-post-btn:hover, .edit-btn:hover {
+    background-color: var(--primary-dark-color);
+    transform: translateY(-2px);
+}
+
+button:active, .add-post-btn:active, .edit-btn:active {
+    transform: translateY(0);
+}
+
+/* Specific button adjustments */
+.post form button {
+    background-color: var(--danger-color); /* Red for delete */
+    padding: 8px 15px;
+    font-size: 0.9em;
+}
+
+.post form button:hover {
+    background-color: #c82333;
+}
+
+.edit-btn {
+    background-color: var(--success-color); /* Green for edit */
+    padding: 8px 15px;
+    font-size: 0.9em;
+    margin-right: 10px;
+}
+
+.edit-btn:hover {
+    background-color: #218838;
+}
+
+
+.add-post-btn {
+    width: auto;
+    margin-top: 20px;
+    display: block;
+    text-align: center;
+}
+
+/* Form Styling */
+form {
+    background-color: var(--white-color);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px var(--shadow-light);
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+input[type="text"],
+textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+/* Post detail page specific styles */
+.post-content p {
+    background-color: var(--background-dark);
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    word-wrap: break-word;
+    white-space: pre-wrap; /* Preserve formatting from textarea input */
+}
+
+.post-footer-actions {
+    margin-top: 25px;
+    display: flex;
+    gap: 15px; /* Space between buttons */
+    justify-content: flex-start;
+}
+
+/* Back to Home link on post page */
+#backBtn {
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    text-decoration: none;
+}
+
+#backBtn:hover {
+    background-color: #5a6268;
+}
+
+#editBtn {
+    background-color: var(--success-color);
+}
+#editBtn:hover {
+    background-color: #218838;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        padding: 20px;
+    }
+
+    .post {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .post a {
+        margin-bottom: 10px;
+        font-size: 1.1em;
+    }
+
+    .post-actions {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
+
+    input[type="text"],
+    textarea {
+        width: 100%;
+    }
+    .post-footer-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .post-footer-actions a, .post-footer-actions button {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8em;
+    }
+
+    button, .add-post-btn, .edit-btn, #backBtn, #editBtn {
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
 }
